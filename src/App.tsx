@@ -8,7 +8,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
+import { useState, useRef } from "react";
 import { 
   Facebook, 
   Instagram, 
@@ -19,7 +20,9 @@ import {
   Users, 
   Calendar, 
   ChevronRight,
-  Star
+  Star,
+  Menu,
+  X
 } from "lucide-react";
 
 const IMAGES = [
@@ -41,6 +44,8 @@ const REELS = [
 ];
 
 export default function App() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
   const socialLinks = {
     tiktok: "https://www.tiktok.com/@_uromana?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBEwaTJIbjlyTjIyVHZBUlVIYnNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR7gID9_5e1zzlrDc6I6kXwaI8nKza59cbd6WgJhG1_Af24QxLzTXHhvryo6GA_aem_dx5NKz9zoNpQfnVlEfdUBQ",
     instagram: "https://www.instagram.com/_uromana?fbclid=IwY2xjawRVT8tleHRuA2FlbQIxMABicmlkETBpMkhuOXJOMjJUdkFSVUhic3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHgCOEE0aNF6m60iTwXRNGOtmdqbwqskjpwjy6XeRbXC5wJJsxk7R0eKE52Pd_aem_fGULr__WTjzp1Gq2pEbEiQ",
@@ -63,13 +68,35 @@ export default function App() {
               Sala Bankietowa <span className="italic font-normal">u Romana</span>
             </h1>
           </div>
+          
           <div className="hidden lg:flex items-center gap-8 text-[11px] font-medium uppercase tracking-[0.2em]">
             <a href="#o-nas" className="hover:text-gold transition-colors">O nas</a>
             <a href="#galeria" className="hover:text-gold transition-colors">Galeria</a>
             <a href="#filmy" className="hover:text-gold transition-colors">Filmy</a>
             <a href="#kontakt" className="px-5 py-2 border border-black hover:bg-black hover:text-white transition-all">Kontakt</a>
           </div>
+
+          <button 
+            className="lg:hidden w-10 h-10 flex items-center justify-center text-charcoal"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
+
+        {/* Mobile menu */}
+        {isMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="lg:hidden absolute top-full left-0 w-full bg-white border-b border-black/5 p-8 flex flex-col gap-6 text-[10px] font-bold uppercase tracking-widest shadow-xl"
+          >
+            <a href="#o-nas" onClick={() => setIsMenuOpen(false)} className="hover:text-gold py-2">O nas</a>
+            <a href="#galeria" onClick={() => setIsMenuOpen(false)} className="hover:text-gold py-2">Galeria</a>
+            <a href="#filmy" onClick={() => setIsMenuOpen(false)} className="hover:text-gold py-2">Filmy</a>
+            <a href="#kontakt" onClick={() => setIsMenuOpen(false)} className="bg-charcoal text-white p-4 text-center">Kontakt</a>
+          </motion.div>
+        )}
       </nav>
 
       {/* Main Hero Grid Layout */}
@@ -138,12 +165,16 @@ export default function App() {
         {/* Home/Visual content area */}
         <div className="lg:col-span-8 flex flex-col">
           {/* Top image grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 h-auto md:h-1/2">
+          <div className="grid grid-cols-2 md:grid-cols-3 h-auto lg:h-1/2">
             {[IMAGES[3], IMAGES[0], IMAGES[5]].map((img, i) => (
-              <div key={i} className="relative aspect-square md:aspect-auto overflow-hidden group bg-stone-200">
-                <img 
+              <div key={i} className="relative aspect-square lg:aspect-auto overflow-hidden group bg-stone-200 border-b lg:border-b-0 border-black/5 last:col-span-2 md:last:col-span-1">
+                <motion.img 
                   src={img} 
-                  className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 scale-[1.01]"
+                  initial={{ filter: "grayscale(100%)" }}
+                  whileInView={{ filter: "grayscale(0%)" }}
+                  viewport={{ once: false, amount: 0.3 }}
+                  transition={{ duration: 1 }}
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 scale-[1.01]"
                   alt={`Hero ${i}`}
                 />
               </div>
@@ -151,18 +182,18 @@ export default function App() {
           </div>
           
           {/* Bottom split: Map and Call to Action */}
-          <div className="grid grid-cols-1 md:grid-cols-2 h-auto md:h-1/2 min-h-[400px]">
-             <div className="relative border-t border-black/5">
+          <div className="grid grid-cols-1 md:grid-cols-2 h-auto lg:h-1/2 min-h-[400px]">
+             <div className="relative border-t lg:border-t-0 border-black/5 min-h-[300px] md:min-h-0">
                 <iframe 
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2533.299752944498!2d19.046325212792738!3d50.58438167149968!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4710d2db6690047d%3A0xce3d1a503c7fcf9a!2sSala%20Bankietowa%20%22u%20Romana%22!5e0!3m2!1spl!2spl!4v1776840950372!5m2!1spl!2spl" 
-                  className="w-full h-full grayscale contrast-125 saturate-50"
+                  className="w-full h-full grayscale contrast-125 saturate-50 brightness-110 aspect-[4/3] md:aspect-auto"
                   style={{ border: 0 }} 
                   allowFullScreen={true} 
                   loading="lazy" 
                   referrerPolicy="no-referrer-when-downgrade"
                 ></iframe>
                 <div className="absolute bottom-6 left-6 bg-white px-4 py-2 text-[10px] uppercase font-bold tracking-[0.3em] shadow-sm">
-                  Strona Główna Woźnik
+                  Lokalizacja
                 </div>
              </div>
              <div className="p-12 md:p-16 flex flex-col justify-center bg-stone-900 text-white relative overflow-hidden">
@@ -336,21 +367,34 @@ export default function App() {
 
       {/* Footer */}
       <footer className="bg-white border-t border-black/5">
-        <div className="max-w-[1400px] mx-auto px-10 py-16 border-x border-black/5 flex flex-col md:flex-row justify-between items-center gap-8">
-           <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full border border-gold flex items-center justify-center text-[10px] font-serif italic text-gold">uR</div>
-              <h1 className="font-serif text-lg tracking-tight uppercase">u Romana</h1>
-           </div>
-           
+        <div className="max-w-[1400px] mx-auto px-10 py-24 grid grid-cols-1 md:grid-cols-3 gap-12 border-x border-black/5">
+          <div className="space-y-6">
+            <h5 className="text-[10px] font-bold uppercase tracking-[0.4em] text-gold">Lokalizacja</h5>
+            <p className="text-sm text-stone-500 leading-loose">
+              Ul. Cegielniana 1<br/>
+              42-289 Woźniki, PL
+            </p>
+          </div>
+          <div className="space-y-6">
+            <h5 className="text-[10px] font-bold uppercase tracking-[0.4em] text-gold">Kontakt</h5>
+            <p className="text-sm text-stone-500 leading-loose">
+              T: 34 352 14 00<br/>
+              E: audi2@o2.pl
+            </p>
+          </div>
+          <div className="space-y-6 text-left">
+            <h5 className="text-[10px] font-bold uppercase tracking-[0.4em] text-gold">Social</h5>
+            <div className="flex gap-4">
+              <a href={socialLinks.facebook} target="_blank" rel="noreferrer" className="text-stone-400 hover:text-black transition-colors uppercase text-[10px] font-bold tracking-widest">Facebook</a>
+              <a href={socialLinks.instagram} target="_blank" rel="noreferrer" className="text-stone-400 hover:text-black transition-colors uppercase text-[10px] font-bold tracking-widest">Instagram</a>
+              <a href={socialLinks.tiktok} target="_blank" rel="noreferrer" className="text-stone-400 hover:text-black transition-colors uppercase text-[10px] font-bold tracking-widest">TikTok</a>
+            </div>
+          </div>
+        </div>
+        <div className="max-w-[1400px] mx-auto px-10 py-10 border-t border-black/5 border-x text-center">
            <p className="text-[9px] uppercase tracking-[0.5em] text-stone-400">
              © {new Date().getFullYear()} Sala Bankietowa u Romana • Woźniki
            </p>
-
-           <div className="flex gap-8">
-              <a href="#o-nas" className="text-[10px] font-bold uppercase tracking-widest hover:text-gold transition-colors">O nas</a>
-              <a href="#galeria" className="text-[10px] font-bold uppercase tracking-widest hover:text-gold transition-colors">Galeria</a>
-              <a href="#kontakt" className="text-[10px] font-bold uppercase tracking-widest hover:text-gold transition-colors">Kontakt</a>
-           </div>
         </div>
       </footer>
     </div>
