@@ -212,7 +212,7 @@ export default function App() {
                 </div>
                 <div className="h-px w-16 bg-gold mb-8"></div>
                 <p className="text-[10px] font-medium text-gold uppercase tracking-[0.5em] animate-pulse">
-                  Rezerwacja terminów 2024/2025
+                  Rezerwacja terminów 2026/2027
                 </p>
              </div>
           </div>
@@ -256,9 +256,13 @@ export default function App() {
                 transition={{ delay: (i % 3) * 0.1 }}
                 className="relative group overflow-hidden bg-white p-2 md:p-3 shadow-sm border border-black/5"
               >
-                <img 
+                <motion.img 
                   src={img} 
-                  className="w-full h-auto object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 
+                  initial={{ filter: "grayscale(100%)" }}
+                  whileInView={{ filter: "grayscale(0%)" }}
+                  viewport={{ once: false, amount: 0.3 }}
+                  transition={{ duration: 0.8 }}
+                  className="w-full h-auto object-cover transition-all duration-700 group-hover:scale-105" 
                   alt={`Galeria ${i}`}
                 />
                 <div className="absolute inset-x-2 md:inset-x-3 bottom-2 md:bottom-3 p-4 bg-white/90 backdrop-blur-sm transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
