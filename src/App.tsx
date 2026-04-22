@@ -140,13 +140,12 @@ export default function App() {
           {/* Top image grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 h-auto md:h-1/2">
             {[IMAGES[3], IMAGES[0], IMAGES[5]].map((img, i) => (
-              <div key={i} className="relative aspect-square md:aspect-auto overflow-hidden group">
+              <div key={i} className="relative aspect-square md:aspect-auto overflow-hidden group bg-stone-200">
                 <img 
                   src={img} 
-                  className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 scale-[1.01]"
                   alt={`Hero ${i}`}
                 />
-                <div className="absolute inset-0 border-[0.5px] border-black/5 pointer-events-none"></div>
               </div>
             ))}
           </div>
@@ -273,36 +272,85 @@ export default function App() {
         </div>
       </section>
 
-      {/* Final Contact / Footer */}
-      <footer id="kontakt" className="bg-white border-t border-black/5">
-        <div className="max-w-[1400px] mx-auto px-10 py-24 grid md:grid-cols-3 gap-12 border-x border-black/5">
-          <div className="space-y-6">
-            <h5 className="text-[10px] font-bold uppercase tracking-[0.4em] text-gold">Lokalizacja</h5>
-            <p className="text-sm text-stone-500 leading-loose">
-              Ul. Cegielniana 1<br/>
-              42-289 Woźniki, PL
-            </p>
-          </div>
-          <div className="space-y-6">
-            <h5 className="text-[10px] font-bold uppercase tracking-[0.4em] text-gold">Kontakt</h5>
-            <p className="text-sm text-stone-500 leading-loose">
-              T: 34 352 14 00<br/>
-              E: audi2@o2.pl
-            </p>
-          </div>
-          <div className="space-y-6 text-right md:text-left">
-            <h5 className="text-[10px] font-bold uppercase tracking-[0.4em] text-gold">Social</h5>
-            <div className="flex gap-4">
-              <a href={socialLinks.facebook} className="text-stone-400 hover:text-black transition-colors uppercase text-[10px] font-bold tracking-widest">Facebook</a>
-              <a href={socialLinks.instagram} className="text-stone-400 hover:text-black transition-colors uppercase text-[10px] font-bold tracking-widest">Instagram</a>
-              <a href={socialLinks.tiktok} className="text-stone-400 hover:text-black transition-colors uppercase text-[10px] font-bold tracking-widest">TikTok</a>
+      {/* Contact Section */}
+      <section id="kontakt" className="py-32 bg-white border-t border-black/5">
+        <div className="max-w-[1400px] mx-auto px-10">
+          <div className="grid lg:grid-cols-12 gap-16 items-start">
+            <div className="lg:col-span-5">
+              <h2 className="font-serif text-5xl md:text-6xl tracking-tight mb-12">
+                Zostańmy <br/><span className="italic font-normal text-gold">w kontakcie</span>
+              </h2>
+              
+              <div className="space-y-12">
+                <div className="group cursor-default">
+                  <span className="block text-[10px] font-bold text-gold tracking-[0.4em] mb-4 uppercase">Adres</span>
+                  <p className="text-2xl font-serif italic text-charcoal mb-2">Cegielniana 1, Woźniki</p>
+                  <p className="text-sm text-stone-400 uppercase tracking-widest">42-289, Województwo Śląskie</p>
+                </div>
+
+                <div className="group">
+                  <span className="block text-[10px] font-bold text-gold tracking-[0.4em] mb-4 uppercase">Telefon</span>
+                  <a href="tel:343521400" className="text-3xl font-serif text-charcoal hover:text-gold transition-colors inline-block">
+                    34 352 14 00
+                  </a>
+                </div>
+
+                <div className="group">
+                  <span className="block text-[10px] font-bold text-gold tracking-[0.4em] mb-4 uppercase">Napisz do nas</span>
+                  <a href="mailto:audi2@o2.pl" className="text-2xl font-serif text-charcoal hover:text-gold transition-colors inline-block">
+                    audi2@o2.pl
+                  </a>
+                </div>
+
+                <div className="pt-8 flex gap-6">
+                  <a href={socialLinks.facebook} target="_blank" rel="noreferrer" className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest hover:text-gold transition-colors">
+                    <Facebook size={14} /> Facebook
+                  </a>
+                  <a href={socialLinks.instagram} target="_blank" rel="noreferrer" className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest hover:text-gold transition-colors">
+                    <Instagram size={14} /> Instagram
+                  </a>
+                  <a href={socialLinks.tiktok} target="_blank" rel="noreferrer" className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest hover:text-gold transition-colors">
+                    <Music2 size={14} /> TikTok
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-7 h-[600px] bg-stone-100 relative group overflow-hidden border border-black/5">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2533.299752944498!2d19.046325212792738!3d50.58438167149968!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4710d2db6690047d%3A0xce3d1a503c7fcf9a!2sSala%20Bankietowa%20%22u%20Romana%22!5e0!3m2!1spl!2spl!4v1776840950372!5m2!1spl!2spl" 
+                className="w-full h-full grayscale contrast-125 saturate-50 brightness-110"
+                style={{ border: 0 }} 
+                allowFullScreen={true} 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+              <div className="absolute top-8 right-8 bg-white border border-black/5 px-6 py-4 shadow-xl shadow-black/5">
+                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold mb-1">Odwiedź nas</p>
+                <p className="text-xs font-medium text-charcoal">Zapraszamy na prezentację sali</p>
+              </div>
             </div>
           </div>
         </div>
-        <div className="max-w-[1400px] mx-auto px-10 py-10 border-t border-black/5 border-x text-center">
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-white border-t border-black/5">
+        <div className="max-w-[1400px] mx-auto px-10 py-16 border-x border-black/5 flex flex-col md:flex-row justify-between items-center gap-8">
+           <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full border border-gold flex items-center justify-center text-[10px] font-serif italic text-gold">uR</div>
+              <h1 className="font-serif text-lg tracking-tight uppercase">u Romana</h1>
+           </div>
+           
            <p className="text-[9px] uppercase tracking-[0.5em] text-stone-400">
-             © {new Date().getFullYear()} Sala Bankietowa u Romana • Est. Woźniki
+             © {new Date().getFullYear()} Sala Bankietowa u Romana • Woźniki
            </p>
+
+           <div className="flex gap-8">
+              <a href="#o-nas" className="text-[10px] font-bold uppercase tracking-widest hover:text-gold transition-colors">O nas</a>
+              <a href="#galeria" className="text-[10px] font-bold uppercase tracking-widest hover:text-gold transition-colors">Galeria</a>
+              <a href="#kontakt" className="text-[10px] font-bold uppercase tracking-widest hover:text-gold transition-colors">Kontakt</a>
+           </div>
         </div>
       </footer>
     </div>
