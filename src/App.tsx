@@ -62,7 +62,7 @@ export default function App() {
         <div className="max-w-[1400px] mx-auto px-6 md:px-10 h-20 md:h-24 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <img 
-              src="https://scontent-waw2-1.xx.fbcdn.net/v/t39.30808-6/583887942_1436637161795568_4997951726368584406_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=1d70fc&_nc_ohc=Uxmue95JEG8Q7kNvwG9wDQc&_nc_oc=AdrSWlQJ7BcAvR5_Ji3NPM3QvWeKNB7QgrQsiCfo8eoWrYqV21TK_7y4Pyw-H_5m94U&_nc_zt=23&se=-1&_nc_ht=scontent-waw2-1.xx&_nc_gid=j_spm-z9sanWaT7bk2hHPQ&_nc_ss=7a3a8&oh=00_Af0YcG6EZ7MR8Erq_PwZd2C7cQfvl0ka9hSxk1rfIT6J7g&oe=69EE45E8" 
+              src="https://iili.io/BZAwW4s.md.jpg" 
               className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-gold" 
               alt="Logo" 
             />
